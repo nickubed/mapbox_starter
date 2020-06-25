@@ -1,0 +1,9 @@
+$my_favorite_color: #0f0;
+$my_second_favorite_color: #00f;
+
+h1 {
+  color: $my_favorite_color;
+  &:hover {
+    color: $my_second_favorite_color;
+  }
+}

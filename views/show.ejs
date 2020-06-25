@@ -1,0 +1,55 @@
+<div>
+    <%= match.place_name %>
+</div>
+<p>City: <%= query[0] %></p>
+<p>State: <%= query[1] %></p>
+<p id="long"> <%= match.center[0] %></p>
+<p id="lat"> <%= match.center[1] %></p>
+<form method="POST" action="/search/fave">
+    <input type="hidden" name="city" value="<%= query[0] %>">
+    <input type="hidden" name="state" value="<%= query[1] %>">
+    <input type="hidden" name="long" value="<%= match.center[0] %>">
+    <input type="hidden" name="lat" value="<%= match.center[1] %>">
+    <button type="submit">Favorite!</button>
+</form>
+<div id="map">
+    <script>
+        let lat = document.getElementById('lat').textContent
+        let long = document.getElementById('long').textContent
+        console.log(lat, long)
+
+        mapboxgl.accessToken = '<%= mapkey %>';
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [long, lat], // starting position [lng, lat]
+            zoom: 12 // starting zoom
+        });
+        var geojson = {
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [long, lat]
+                    },
+                    properties: {
+                        title: 'Mapbox',
+                        description: 'Mapbox element'
+                    }
+                }]
+            };
+                console.log(geojson)
+                // add markers to map
+        geojson.features.forEach(function(marker) {
+            var el = document.createElement('div');
+            el.className = 'marker';
+            el.textContent = 'Hello'
+            el.style.fontSize = '25px'
+            console.log(el)
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+        });
+    </script>
+</div>
