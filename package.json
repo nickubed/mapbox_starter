@@ -19,7 +19,7 @@
     "mapbox": "^1.0.0-beta10",
     "mapbox-gl": "^1.9.1",
     "method-override": "^3.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "pg": "^8.0.2",
     "sequelize": "^5.21.6"
   }
